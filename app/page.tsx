@@ -1,103 +1,217 @@
+"use client";
+
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [page, setPage] = useState(1);
+  const totalPages = 3;
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const goToNextPage = () => {
+    if (page < totalPages) setPage(page + 1);
+  };
+
+  const goToPreviousPage = () => {
+    if (page > 1) setPage(page - 1);
+  };
+
+  return (
+    <div className="relative min-h-screen flex text-3xl flex-col bg-gradient-to-r from-blue-900 to-black text-white">
+      <Navbar />
+
+      {/* Pagination Controls */}
+      <div className="fixed bottom-5 right-5 flex gap-4 z-50">
+        <button
+          onClick={goToPreviousPage}
+          disabled={page === 1}
+          className="px-6 py-2 bg-blue-700 text-white rounded disabled:opacity-50"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Previous
+        </button>
+        <span className="self-center text-lg">
+          Page {page} of {totalPages}
+        </span>
+        <button
+          onClick={goToNextPage}
+          disabled={page === totalPages}
+          className="px-6 py-2 bg-blue-700 text-white rounded disabled:opacity-50"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Next
+        </button>
+      </div>
+
+      {/* Page 1: Hero, Mission, Vision */}
+      {page === 1 && (
+        <>
+          <header className="py-32 text-center mt-16 px-4">
+            <h1 className="text-5xl font-extrabold">DevXperts Software Solutions</h1>
+            <p className="text-2xl text-gray-300 mt-4 max-w-3xl mx-auto">
+              Building intelligent, scalable, and user-centric software systems that make a difference.
+            </p>
+          </header>
+
+          <section className="px-6 md:px-24 pb-16">
+            <h2 className="text-4xl font-bold text-center mb-6">Our Mission</h2>
+            <p className="text-2xl text-gray-300 max-w-5xl mx-auto leading-relaxed text-center">
+              At DevXperts, our mission is to empower individuals and organizations with cutting-edge digital solutions.
+              We blend creativity with technology to deliver products that are not only functional, but also intuitive and impactful.
+              Every line of code we write is meant to solve real-world challenges with elegance and efficiency.
+            </p>
+          </section>
+
+          <section className="py-10 px-6 md:px-24">
+            <h2 className="text-4xl font-bold text-center mb-6">Our Vision</h2>
+            <p className="text-2xl text-gray-300 max-w-5xl mx-auto leading-relaxed text-center">
+              We envision a future where software bridges gaps, fosters inclusion, and accelerates progress in every industry.
+              Our team strives to lead the way in innovation by building systems that are sustainable, secure, and built to scale.
+            </p>
+          </section>
+        </>
+      )}
+
+      {/* Page 2: Core Values + What We Do */}
+      {page === 2 && (
+        <>
+          <section className="py-20 px-6 md:px-24">
+            <h2 className="text-4xl font-bold text-center mb-6">Core Values</h2>
+            <ul className="text-2xl text-gray-300 max-w-4xl mx-auto space-y-4 leading-relaxed list-disc list-inside">
+              <li><strong>Integrity:</strong> We believe in honest and ethical development practices.</li>
+              <li><strong>Collaboration:</strong> We work together across disciplines to find the best solutions.</li>
+              <li><strong>Innovation:</strong> We embrace new technologies and creative thinking.</li>
+              <li><strong>Quality:</strong> We deliver code and designs that we’re proud of.</li>
+              <li><strong>Empowerment:</strong> We help our clients and team members grow.</li>
+            </ul>
+          </section>
+
+          <section className="py-20 text-xl px-6 md:px-24">
+            <h2 className="text-4xl font-bold text-center mb-12">What We Do</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto text-gray-100 text-left">
+              <div>
+                <h3 className="text-2xl font-semibold mb-2">Web & App Development</h3>
+                <p>
+                  From concept to code, we build responsive, scalable web and mobile applications using the latest frameworks and best practices.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold mb-2">UI/UX Design</h3>
+                <p>
+                  We craft human-centric designs that drive engagement and reflect your brand identity. From wireframes to polished visuals.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold mb-2">Consulting & Strategy</h3>
+                <p>
+                  Not sure where to start? Our team can help define your tech roadmap, conduct audits, and propose optimized software solutions.
+                </p>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* Page 3: Team Section */}
+      {page === 3 && (
+        <section className="py-24 px-6 md:px-24">
+          <h2 className="text-4xl font-bold text-center mb-10">Meet Our Team</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+            {/* Charo Ishmael Kazungu */}
+            <div className="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl text-center opacity-50 hover:opacity-100 transition-opacity duration-300 hover:shadow-blue-800">
+              <div className="w-32 h-32 mx-auto mb-4">
+                <Image
+                  src="/charo.jpeg"
+                  alt="Charo Ishmael Kazungu"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-blue-800">Charo Ishmael Kazungu</h3>
+              <p className="text-xl font-medium text-gray-700">Project Manager</p>
+              <p className="text-xl text-gray-600 mt-2">
+                Charo ensures smooth project execution by setting timelines, coordinating teams, and managing client expectations.
+                With a strong background in Agile methodologies, he keeps DevXperts moving efficiently toward project goals.
+              </p>
+            </div>
+
+            {/* Dok Miyom Chol */}
+            <div className="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl text-center opacity-50 hover:opacity-100 transition-opacity duration-300 hover:shadow-blue-800">
+              <div className="w-32 h-32 mx-auto mb-4">
+                <Image
+                  src="/dok.jpeg"
+                  alt="Dok Miyom Chol"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-blue-800">Dok Miyom Chol</h3>
+              <p className="text-xl font-medium text-gray-700">Lead Software Engineer</p>
+              <p className="text-xl text-gray-600 mt-2">
+                Dok oversees all technical decisions, mentoring the development team, architecting scalable systems, and implementing
+                cutting-edge technologies that power our software solutions.
+              </p>
+            </div>
+
+            {/* Valerian Misati */}
+            <div className="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl text-center opacity-50 hover:opacity-100 transition-opacity duration-300 hover:shadow-blue-800">
+              <div className="w-32 h-32 mx-auto mb-4">
+                <Image
+                  src="/misati.jpeg"
+                  alt="Valerian Misati"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-blue-800">Valerian Misati</h3>
+              <p className="text-xl font-medium text-gray-700">UX/UI Engineer</p>
+              <p className="text-xl text-gray-600 mt-2">
+                Valerian brings interfaces to life with his artistic eye and strong user empathy. He transforms complex requirements
+                into intuitive, delightful experiences that users love.
+              </p>
+            </div>
+
+            {/* Ramadan Sage */}
+            <div className="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl text-center opacity-50 hover:opacity-100 transition-opacity duration-300 hover:shadow-blue-800">
+              <div className="w-32 h-32 mx-auto mb-4">
+                <Image
+                  src="/ramadan.jpeg"
+                  alt="Ramadan Sage"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-blue-800">Ramadan Sage</h3>
+              <p className="text-xl font-medium text-gray-700">Support Assistant</p>
+              <p className="text-xl text-gray-600 mt-2">
+                Ramadan ensures all day-to-day support operations run smoothly. He provides frontline client support, monitors feedback
+                loops, and helps streamline internal workflows.
+              </p>
+            </div>
+
+            {/* Rayan Mwangi */}
+            <div className="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl text-center opacity-50 hover:opacity-100 transition-opacity duration-300 hover:shadow-blue-800">
+              <div className="w-32 h-32 mx-auto mb-4">
+                <Image
+                  src="/rayan.jpeg"
+                  alt="Rayan Mwangi"
+                  width={128}
+                  height={128}
+                  className="rounded-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-blue-800">Rayan Mwangi</h3>
+              <p className="text-xl font-medium text-gray-700">Software Developer</p>
+              <p className="text-xl text-gray-600 mt-2">
+                Rayan contributes to full-stack development, ensuring robust back-end services and polished front-end designs across our products.
+              </p>
+            </div>
+
+          </div>
+        </section>
+      )}
     </div>
   );
 }
