@@ -9,7 +9,7 @@ const projects = [
     title: "📘 Study Streams",
     description:
       "Study Streams is a modern LMS for online education. It empowers students, teachers, and parents with dashboards, course management, assessments, and progress tracking.",
-    link: "https://study-streams-app-zbi5-git-main-akuila-doks-projects.vercel.app",
+    link: "https://study-streams-app.vercel.app/",
   },
   {
     title: "🏥 Hospital Management System",
